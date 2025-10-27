@@ -1,20 +1,20 @@
 # compilation-import-attribute
 
-A specification for an [import attribute](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import/with) to differentiate kinds of imports for Ecmascript compilers, bundlers, and runtimes.
+A specification for an [import attribute](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import/with) to differentiate kinds of imports for ECMAScript compilers, bundlers, and runtimes.
 
 ## Background
 
-Ecmascript imports can be processed in various environments, including browsers, NodeJS (or similar execution environments), compilers, or bundlers. When preprocessed with compilers or bundlers, Ecmascript imports have historically been configured to behave in at least three distinct ways:
+ECMAScript imports can be processed in various environments, including browsers, NodeJS (or similar execution environments), compilers, or bundlers. When preprocessed with compilers or bundlers, ECMAScript imports have historically been configured to behave in at least three distinct ways:
 
 1. *Bundled:* the import is removed in favor of concatenating the imported files together into an output bundle
 1. *Code split:* the import is processed as a separate bundle file (often called a "chunk") that is loaded dynamically at runtime, either through native `import()` or, more commonly, through a bundler-specific script load. The chunk itself is compiled as a bundle.
 1. *Externalized:* the import is processed at runtime in the browser or NodeJS.
 
-In webpack, rollup, and other popular ecmascript bundlers, static `import` statements are processed by bundlers to be bundled, by default, whereas code splits are created via dynamic `import()` and externalized imports are configured within the bundler. Non-ecmascript bundlers, such as esbuild or swc, often follow similar conventions.
+In webpack, rollup, and other popular ECMAScript bundlers, static `import` statements are processed by bundlers to be bundled, by default, whereas code splits are created via dynamic `import()` and externalized imports are configured within the bundler. Non-ECMAScript bundlers, such as esbuild or swc, often follow similar conventions.
 
 ## Problem Statement
 
-How an Ecmascript import statement behaves should be understood within the code itself, rather than a combination of the code and bundler configuration. An Ecmascript file should be self contained and portable regardless of which bundler, tooling, or configuration is present within a project.
+How an ECMAScript import statement behaves should be understood within the code itself, rather than a combination of the code and bundler configuration. An ECMAScript file should be self contained and portable regardless of which bundler, tooling, or configuration is present within a project.
 
 ## Solution
 
@@ -62,6 +62,12 @@ is compiled to the following:
 import('react');
 ```
 
+## Benefits
+
+- There is tension between ECMAScript being an interpreted language but a lot of the source code requiring a compilation process before it can be interpreted. The `compilation` import attribute surfaces that tension within the source code rather than burying it within myriad configuration variants across the open source ecosystem.
+- Any ECMAScript source code file could be statically analyzed for the `compilation` import attribute in order to know whether it is intended to be executed directly or first pre-processed by a compiler or bundler.
+- Webpack's `import(/* webpackIgnore: true */)` special syntax for dynamic imports could be superseded by a syntax not tied to any specific bundler
+
 ## Support
 
 To support the `compilation` attribute, the following tooling will be created:
@@ -72,3 +78,5 @@ To support the `compilation` attribute, the following tooling will be created:
 - NodeJS loader
 - something to make tsc understand it
 - any tooling for esbuild, swc, vite, jest, etc
+
+Adding browser support for the `compilation` attribute would likely not be possible, as it is the runtime execution environment rather than a compiler or bundler
