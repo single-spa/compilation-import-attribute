@@ -14,7 +14,7 @@ In webpack, rollup, and other popular ECMAScript bundlers, static `import` state
 
 ## Problem Statement
 
-How an ECMAScript import statement behaves should be understood within the code itself, rather than a combination of the code and bundler configuration. An ECMAScript file should be self contained and portable regardless of which bundler, tooling, or configuration is present within a project.
+How an ECMAScript import statement behaves should be understood within the source code itself, rather than a combination of the code and bundler configuration. An ECMAScript file should be self contained and portable regardless of which bundler, tooling, or configuration is present within a project.
 
 ## Solution
 
