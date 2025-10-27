@@ -61,3 +61,13 @@ is compiled to the following:
 // Output
 import('react');
 ```
+
+## Support
+
+To support the `compilation` attribute, the following tooling will be created:
+
+- webpack plugin
+- rollup plugin
+- babel plugin
+- something to make tsc understand it
+- any tooling for esbuild, swc, vite, jest, etc
