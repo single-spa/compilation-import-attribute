@@ -48,3 +48,16 @@ import { App } from './app-chunk.js';
 // react-router concatenated into the bundle, as the default behavior when the compilation import attribute is missing
 ```
 
+Similarly, an input file with a dynamic import:
+
+```js
+// Input
+import('react', { with: { compilation: "ignore" } });
+```
+
+is compiled to the following:
+
+```js
+// Output
+import('react');
+```
