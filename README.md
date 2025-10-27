@@ -69,5 +69,6 @@ To support the `compilation` attribute, the following tooling will be created:
 - webpack plugin
 - rollup plugin
 - babel plugin
+- NodeJS loader
 - something to make tsc understand it
 - any tooling for esbuild, swc, vite, jest, etc
